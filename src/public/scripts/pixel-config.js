@@ -9,8 +9,8 @@
     // Pixel Settings
     var Pixel = {
         PIXEL_SERVER: location.origin.replace(/^http/, 'ws'),
-        CANVAS_WIDTH: 50, // The width and height must be the same as the values set for the server
-        CANVAS_HEIGHT: 50,
+        CANVAS_WIDTH: 100, // The width and height must be the same as the values set for the server
+        CANVAS_HEIGHT: 100,
         CANVAS_INITIAL_ZOOM: 20,
         CANVAS_MIN_ZOOM: 10,
         CANVAS_MAX_ZOOM: 40,
@@ -19,12 +19,12 @@
 
         // optional onload()
         onload: function() {
-            toastr["info"]("Select a color with the 1 - 9 keys\r\nPress 0 to erase", "Instructions");
+            toastr["info"]("通过数字键1-9选择一个颜色\r\n按0来擦除", "介绍");
             setTimeout(function() {
-                toastr["info"]("Keep in mind, you have a 1 minute delay between each pixel you draw");
+                toastr["info"]("请记住，你绘制的每个像素之间有2分钟的间隔");
             }, 4000);
             setTimeout(function() {
-                toastr["info"]("Most importantly, have fun! Full sourcecode is on my GitHub.");
+                toastr["info"]("最重要的事情是，玩得开心！");
             }, 8000);
         }
     };
