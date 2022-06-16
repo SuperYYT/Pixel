@@ -19,12 +19,12 @@
 
         // optional onload()
         onload: function() {
-            toastr["info"]("通过数字键1-9选择一个颜色\r\n按0来擦除", "介绍");
+            toastr["info"]("通过数字键 1-9 选择一个颜色\r\n按 0 来擦除", "介绍");
             setTimeout(function() {
                 toastr["info"]("请记住，你绘制的每个像素之间有2分钟的间隔");
             }, 4000);
             setTimeout(function() {
-                toastr["info"]("最重要的事情是，玩得开心！");
+                toastr["info"]("最最重要的是，玩得开心！( •̀ ω •́ )✧");
             }, 8000);
         }
     };

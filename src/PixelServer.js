@@ -56,7 +56,7 @@ function resetPixels() {
     }
 }
 
-console.log("Pixel Server Initializing");
+console.log("像素服务器初始化");
 
 let ws, mongoclient, pixelCollection;
 resetPixels();
@@ -74,11 +74,11 @@ if (MONGODB_URI) {
             });
         } else {
             mongoclient.createCollection('pixels');
-            console.log("Creating MongoDB collection");
+            console.log("创建MongoDB连接");
         }
     });
 } else {
-    console.log("No MongoDB connection, all pixels will be stored in RAM");
+    console.log("没有MongoDB连接，所有像素将存储在RAM中");
 }
 
 
@@ -89,7 +89,7 @@ ws.on("connection", function(socket) {
 
     var log = function(text) {
         //console.log("[" + (new Date()).toLocaleString() + "] [" + remoteIP + "] ->\t" + text);
-        console.log("[Client " + remoteIP + "] ->\t" + text);
+        console.log("[客户端 " + remoteIP + "] ->\t" + text);
     };
 
     function sendPixelUpdate(x, y, receiver = socket) {
@@ -109,7 +109,7 @@ ws.on("connection", function(socket) {
         }));
     }
 
-    log("New client connected\t(" + ws.clients.size + " total)");
+    log("新客户端已连接\t(" + ws.clients.size + " total)");
 
     socket.send(JSON.stringify({
         "action": "canvasInfo",
@@ -138,7 +138,7 @@ ws.on("connection", function(socket) {
                 break;
 
             case "refreshPixels":
-                log("Client requested pixel refresh");
+                log("客户端请求的像素刷新");
 
                 var pixelArray = new Uint8Array(CANVAS_WIDTH * CANVAS_HEIGHT);
                 for (var x = 0; x < CANVAS_WIDTH; x++) {
@@ -185,7 +185,7 @@ ws.on("connection", function(socket) {
                     });
 
                 } else {
-                    log("Invalid paint request");
+                    log("无效绘制请求");
                 }
                 break;
 
@@ -195,19 +195,19 @@ ws.on("connection", function(socket) {
                 break;
 
             default:
-                log("Invalid message");
+                log("无效信息");
                 break;
         }
     });
 
     socket.on("error", function(exception) {
-        log("Error encountered");
+        log("遇到的错误");
         log(exception);
     });
 
     socket.on("close", function() {
-        log("Client disconnected (" + ws.clients.size + " total)");
+        log("客户端断开连接 (" + ws.clients.size + " total)");
     });
 });
 
-console.log("Pixel Server Listening on port " + PORT);
+console.log("像素服务器监听于端口 " + PORT);

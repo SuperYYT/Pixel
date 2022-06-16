@@ -25,7 +25,7 @@
 				if (this.refreshCallback)
 					this.refreshCallback(new Uint8Array(event.data));
 				else
-					console.log("No refresh callback specified.")
+					console.log("没有指定刷新回调。")
 
 			} else if (this.messageHandler) {
 				var received;
@@ -35,7 +35,7 @@
 					return;
 				}
 				if (!received || !received.action){
-					console.log("Received unformatted or unknown command from server", data);
+					console.log("从服务器接收到未格式化或未知的命令", data);
 					return;
 				}
 
@@ -50,17 +50,17 @@
 		}.bind(this);
 
 		this.socket.onclose = function(event) {
-			console.log("PixelSocket closed");
+			console.log("PixelSocket 关闭");
 			if (this.onclose) this.onclose(event);
 		}.bind(this);
 
 		this.socket.onerror = function(event) {
-			console.log("PixelSocket websocket error", event.data);
+			console.log("PixelSocket websocket 错误", event.data);
 			if (this.onerror) this.onerror(event);
 		}.bind(this);
 
 		this.socket.onopen = function(event) {
-			console.log("PixelSocket opened");
+			console.log("PixelSocket 已开启");
 			if (this.onopen) this.onopen(event);
 			this.requestRefresh();
 

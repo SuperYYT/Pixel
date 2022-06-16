@@ -27,9 +27,9 @@
     var pixelSocket = new PixelSocket(Pixel.PIXEL_SERVER);
 
     pixelSocket.setCanvasRefreshHandler(function(pixelData) {
-        console.log("Received pixel data from server");
+        console.log("从服务器接收像素数据");
         if (!pixels) {
-            console.log("Canvas not ready, storing temporarily.")
+            console.log("画板未准备好，暂时储存。")
             pixelRefreshData = pixelData;
             return;
         }
@@ -47,7 +47,7 @@
 
         switch (data.action) {
             case "updatePixel":
-                console.log("Pixel Update", data.x, data.y, "color", data.colorID);
+                console.log("像素更新", data.x, data.y, "color", data.colorID);
                 if (!pixels) return;
 
                 pixelMap[data.x][data.y]["shape"].graphics.beginFill(CANVAS_COLORS[data.colorID]).drawRect(data.x, data.y, 1, 1);
@@ -57,23 +57,23 @@
                 break;
 
             case "timer":
-                console.log("Timer: ", data.time);
+                console.log("计时器: ", data.time);
                 if (data.type == "toofast")
-                    toastr["warning"]("Try again in a little bit", "You're drawing too fast!", {"progressBar": true, "timeOut": data.time});
+                    toastr["warning"]("等一下下再画啦~", "你画的太快啦！", {"progressBar": true, "timeOut": data.time});
                 break;
 
             default:
-                console.log("Unknown action:", data.action);
+                console.log("未知行为:", data.action);
                 break;
         }
 
     });
 
     pixelSocket.onclose = function() {
-        toastr["error"]("No Connection to Server", null, {"onclick": null, "timeOut": "0", "extendedTimeOut": "0"});
+        toastr["error"]("与服务器断开连接", null, {"onclick": null, "timeOut": "0", "extendedTimeOut": "0"});
     };
 
-    console.log("Connecting to ", pixelSocket.server);
+    console.log("正在连接至 ", pixelSocket.server);
     pixelSocket.connect();
     /* END PixelSocket CODE */
 
@@ -81,7 +81,7 @@
     /* Enable pixel selector */
     function startDrawing(colorID = 0) {
         var color = CANVAS_COLORS[colorID];
-        console.log("Selected Color", color);
+        console.log("选择颜色", color);
         var p = pixels.globalToLocal(stage.mouseX, stage.mouseY);
         selectedColorID = colorID;
         drawingShape.graphics.clear().beginFill(CANVAS_COLORS[selectedColorID]).drawRect(0, 0, 1, 1);
@@ -96,7 +96,7 @@
     /* Disable pixel selector, update canvas, and send data to server */
     function endDrawing(x, y) {
         if (x >= 0 && y >= 0 && x < CANVAS_WIDTH && y < CANVAS_HEIGHT) {
-            console.log("Drawing to pixel", x, y, CANVAS_COLORS[selectedColorID]);
+            console.log("画在像素上", x, y, CANVAS_COLORS[selectedColorID]);
             pixelMap[x][y]["shape"].graphics.beginFill(CANVAS_COLORS[selectedColorID]).drawRect(x, y, 1, 1);
 
             // SEND PIXEL UPDATE TO SERVER!
@@ -109,7 +109,7 @@
 
     $(document).ready(function() {
 
-        console.log("Initializing EaselJS Stage");
+        console.log("初始化EaselJS阶段");
         stage = new createjs.Stage(Pixel.CANVAS_ELEMENT_ID);
 
         var context = stage.canvas.getContext("2d");
@@ -140,7 +140,7 @@
         pixels.y = (window.innerHeight - (zoom * CANVAS_HEIGHT)) / 2;
 
         stage.update();
-        console.log("Canvas Initialization done.");
+        console.log("画板初始化完成。");
 
 
         /* User selects color with number keys */
@@ -184,7 +184,7 @@
 
 
         if (window.Pixel === undefined) {
-            toastr["error"]("Cannot load Pixel configuration. Check if pixel-config.js exists.", null, {"onclick": null, "timeOut": "0", "extendedTimeOut": "0"});
+            toastr["error"]("无法加载像素配置。检查pixel-config.js是否存在。", null, {"onclick": null, "timeOut": "0", "extendedTimeOut": "0"});
             return
         }
 
