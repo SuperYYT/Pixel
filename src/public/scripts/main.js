@@ -62,6 +62,10 @@
                     toastr["warning"]("等一下下再画啦~", "你画的太快啦！", {"progressBar": true, "timeOut": data.time});
                 break;
 
+            case "pong":
+                console.log("Received ping response.");
+                break;
+
             default:
                 console.log("未知行为:", data.action);
                 break;
